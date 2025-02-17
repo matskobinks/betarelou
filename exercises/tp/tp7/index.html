@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/modern-normalize/1.1.0/modern-normalize.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <title>TP7</title>
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #1c1c1c;
+            color: #d3d3d3;
+            display: flex;
+             justify-content: flex-start; align-items: flex-start;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        table {
+            width: 60%;
+            margin: 20px auto;
+            border-collapse: collapse;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+            background-color: #2a2a2a;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        th, td {
+            padding: 15px;
+            text-align: center;
+        }
+        th {
+            background-color: #3b3b3b;
+            color: #4CAF50;
+            font-weight: 700;
+        }
+        td {
+            border-bottom: 1px solid #444;
+        }
+        td input {
+            border: 2px solid transparent;
+            width: 15em;
+            height: 2.5em;
+            padding-left: 0.8em;
+            outline: none;
+            overflow: hidden;
+            background-color: #F3F3F3;
+            border-radius: 10px;
+            transition: all 0.5s;
+        }
+        td input:hover,
+        td input:focus {
+            border: 2px solid #4A9DEC;
+            box-shadow: 0px 0px 0px 7px rgba(74, 157, 236, 0.2);
+            background-color: white;
+        }
+        td input:focus {
+            outline: none;
+            border-color: #45a049;
+            box-shadow: 0 0 10px #45a049;
+        }
+        td input:focus {
+            outline: none;
+            border-color: #45a049;
+            box-shadow: 0 0 10px #45a049;
+        }
+        button {
+            background-color: #4CAF50;
+            color: #ffffff;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1em;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        button i {
+            margin-right: 5px;
+        }
+        #totalResultat {
+            font-weight: bold;
+            color: #4CAF50;
+            background-color: #3c3c3c;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+    <h1 style="text-align: center; font-size: 2.5em; color: #4CAF50; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); margin-bottom: 20px; position: absolute; top: 20px; left: 50%; transform: translateX(-50%);">Facture en JavaScript</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Article</th>
+                <th>Prix</th>
+                <th>Quantité</th>
+                <th>Résultats</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><input type="text" placeholder="Article 1" id="article1"></td>
+                <td><input type="number" placeholder="Entrez le prix" id="prix1"></td>
+                <td><input type="number" placeholder="Entrez la quantité" id="quantite1"></td>
+                <td><input type="text" placeholder="Résultat" id="resultat1" readonly></td>
+            </tr>
+            <tr>
+                <td><input type="text" placeholder="Article 2" id="article2"></td>
+                <td><input type="number" placeholder="Entrez le prix" id="prix2"></td>
+                <td><input type="number" placeholder="Entrez la quantité" id="quantite2"></td>
+                <td><input type="text" placeholder="Résultat" id="resultat2" readonly></td>
+            </tr>
+            <tr>
+                <td><input type="text" placeholder="Article 3" id="article3"></td>
+                <td><input type="number" placeholder="Entrez le prix" id="prix3"></td>
+                <td><input type="number" placeholder="Entrez la quantité" id="quantite3"></td>
+                <td><input type="text" placeholder="Résultat" id="resultat3" readonly></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td><button onclick="reinitialiser()" style="background-color: #e74c3c;"><i class="fas fa-redo-alt"></i> Réinitialiser</button></td>
+                <td><button onclick="calculerTotal()"><i class="fas fa-calculator"></i> Calculer Total</button></td>
+                <td><input type="text" placeholder="Total" id="totalResultat" readonly></td>
+            </tr>
+        </tbody>
+    </table>
+    <script>
+        function calculer(index) {
+            const prix = parseFloat(document.getElementById(`prix${index}`).value) || 0;
+            const quantite = parseFloat(document.getElementById(`quantite${index}`).value) || 0;
+            document.getElementById(`resultat${index}`).value = (prix * quantite).toFixed(2);
+        }
+
+        function reinitialiser() {
+            for (let i = 1; i <= 3; i++) {
+                document.getElementById(`article${i}`).value = '';
+                document.getElementById(`prix${i}`).value = '';
+                document.getElementById(`quantite${i}`).value = '';
+                document.getElementById(`resultat${i}`).value = '';
+            }
+            document.getElementById('totalResultat').value = '';
+        }
+
+        function calculerTotal() {
+            let total = 0;
+            for (let i = 1; i <= 3; i++) {
+                total += parseFloat(document.getElementById(`resultat${i}`).value) || 0;
+            }
+            document.getElementById('totalResultat').value = total.toFixed(2);
+        }
+
+        for (let i = 1; i <= 3; i++) {
+            document.getElementById(`prix${i}`).addEventListener('input', () => calculer(i));
+            document.getElementById(`quantite${i}`).addEventListener('input', () => calculer(i));
+        }
+    </script>
+</body>
+</html>

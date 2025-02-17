@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TP6</title>
+    <script src="script.js"></script>
+    <style>
+        body {
+            color : black;
+            background-color: gray;
+            text-align: center;
+        }
+
+        .box {
+            background-color: white;
+            margin: auto;
+            width: 90%;
+            max-width: 300px;
+            border-radius: 5px;
+            border-color: black;
+            border-style: groove;
+        }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <h1>Identification</h1>
+        <h2>identifiant :</h2>
+        <input type="text" name="Identification" id="identification">
+        <h2>password :</h2>
+        <input type="password" name="password" id="password">
+        <br><br>
+        <button type="submit" onclick="login()">se connecter</button>
+        <button onclick="window.location.reload();">annuler</button>
+        <br><br>
+    </div>
+</body>
+</html>
